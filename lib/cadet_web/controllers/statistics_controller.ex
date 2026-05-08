@@ -12,10 +12,10 @@ defmodule CadetWeb.StatisticsController do
     course_reg = conn.assigns.course_reg
 
     attrs = %{
-      answer:                 params["answer"],
-      attempt_number:         params["attemptNumber"] || 1,
-      question_id:            params["questionId"],
-      assessment_id:          params["assessmentId"],
+      answer: params["answer"],
+      attempt_number: params["attemptNumber"] || 1,
+      question_id: params["questionId"],
+      assessment_id: params["assessmentId"],
       course_registration_id: course_reg.id
     }
 
