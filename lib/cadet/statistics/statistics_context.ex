@@ -1,3 +1,5 @@
+#kand-statistics
+
 defmodule Cadet.Statistics do
   import Ecto.Query
 
