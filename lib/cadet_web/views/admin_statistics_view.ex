@@ -7,11 +7,11 @@ defmodule CadetWeb.AdminStatisticsView do
 
   def render("stat.json", %{stat: stat}) do
     %{
-      questionId: stat.question_id,
-      assessmentId: stat.assessment_id,
-      courseRegistrationId: stat.course_registration_id,
+      assessment_id: stat.assessment_id,
+      question_id: stat.question_id,
       answer: stat.answer,
-      attemptNumber: stat.attempt_number
+      user_id: stat.user_id
+
     }
   end
 end

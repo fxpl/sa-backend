@@ -9,14 +9,11 @@ defmodule CadetWeb.StatisticsController do
   Saves one answer record to the answer_statistics table.
   """
   def create(conn, params) do
-    course_reg = conn.assigns.course_reg
-
     attrs = %{
       answer: params["answer"],
-      attempt_number: params["attemptNumber"] || 1,
       question_id: params["questionId"],
       assessment_id: params["assessmentId"],
-      course_registration_id: course_reg.id
+      user_id: params["userId"],
     }
 
     case Statistics.create_stat(attrs) do

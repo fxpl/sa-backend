@@ -8,8 +8,7 @@ defmodule CadetWeb.AdminStatisticsController do
   Returns all answer statistics for a given assessment. Staff only.
   """
   def index(conn, %{"assessment_id" => assessment_id}) do
-    course_id = conn.assigns.course_reg.course_id
-    stats = Statistics.list_stats(course_id, assessment_id)
+    stats = Statistics.list_stats(assessment_id)
     render(conn, "index.json", stats: stats)
   end
 end

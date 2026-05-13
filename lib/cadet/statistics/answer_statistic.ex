@@ -4,11 +4,9 @@ defmodule Cadet.Statistics.AnswerStatistic do
 
   schema "answer_statistics" do
     field(:answer, :integer)
-    field(:attempt_number, :integer, default: 1)
-
-    belongs_to(:question, Cadet.Assessments.Question)
-    belongs_to(:assessment, Cadet.Assessments.Assessment)
-    belongs_to(:course_registration, Cadet.Accounts.CourseRegistration)
+    field(:question_id, :integer)
+    field(:assessment_id, :integer)
+    field(:user_id, :integer)
 
     timestamps()
   end
@@ -17,12 +15,10 @@ defmodule Cadet.Statistics.AnswerStatistic do
     stat
     |> cast(attrs, [
       :answer,
-      :attempt_number,
       :question_id,
       :assessment_id,
-      :course_registration_id
+      :user_id
     ])
-    |> validate_required([:answer, :question_id, :assessment_id, :course_registration_id])
-    |> validate_number(:attempt_number, greater_than: 0)
+    |> validate_required([:answer, :question_id, :assessment_id])
   end
 end
