@@ -125,6 +125,14 @@ defmodule Cadet.Assessments.Answer do
     |> cast(contest_score_param, [:relative_score])
   end
 
+  @spec popular_score_update_changeset(
+          {map(), map()}
+          | %{
+              :__struct__ => atom() | %{:__changeset__ => any(), optional(any()) => any()},
+              optional(atom()) => any()
+            },
+          :invalid | %{optional(:__struct__) => none(), optional(atom() | binary()) => any()}
+        ) :: Ecto.Changeset.t()
   @doc """
   Used to update popular_score of answer to contest_score
   """

@@ -94,6 +94,7 @@ defmodule CadetWeb.Router do
     post("/assessments/:assessmentid/unlock", AssessmentsController, :unlock)
     post("/assessments/:assessmentid/submit", AssessmentsController, :submit)
     post("/assessments/question/:questionid/answer", AnswerController, :submit)
+    post("/statistics", StatisticsController, :create)
 
     post(
       "/assessments/question/:questionid/answerLastModified",
@@ -144,6 +145,8 @@ defmodule CadetWeb.Router do
       AdminAssessmentsController,
       :get_score_leaderboard
     )
+
+    get("/statistics", AdminStatisticsController, :index)
 
     get("/grading", AdminGradingController, :index)
     get("/grading/summary", AdminGradingController, :grading_summary)
