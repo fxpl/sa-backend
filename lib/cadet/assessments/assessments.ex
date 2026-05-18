@@ -588,18 +588,12 @@ defmodule Cadet.Assessments do
   get all answers connected to that assessment
 
   """
-  def reset_answer(cr_id, assessment_id) do
-    Assessment
-    |> where(assessment_id == ^assessment_id)
-    |> join(:inner, [])
-    
-
-    # Answer
-    # |> where(question: ^id == question_id)
-    # |> join(:inner, [a], q in assoc(a, :question))
-    # |> join(:inner, [a, q], asst in assoc(q, :assessment))
-    # |> where([a, q, asst], asst.id == ^assessment_id)
-
+  def reset_answer(student_id, assessment_id) do
+    Answer
+    |> join([a], a.submission.student_id == ^student_id) # Get ALL answers with this student_id
+    |> join(:inner, [a, q], q.assessment_id == ^assessment_id) # get questions connected to this assessment
+    |> where([a, q], a.submission.student_id == ^student_id and q.question_id == ^assessment_id) # Filter: questions that is connected to 
+    |> Repo.delete_all()
   end
 
   @spec insert_or_update_assessment_changeset(map(), boolean()) :: Ecto.Changeset.t()
