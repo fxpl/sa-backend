@@ -37,6 +37,27 @@ defmodule CadetWeb.AssessmentsController do
     end
   end
 
+  def delete_assessment_answers(conn, %{"assessmentid" => assessment_id}, ) do
+    cr = conn.assigns.course_reg
+    
+    with {:assessment, assessment} when not is_nil(assessment) <-
+          {assessment, Assessments.get_assessment(assessment_id, cr)},
+        {:ok, _nil} <- Assessments.reset_answers(cr.student_id, assessment_id) do
+      text(conn, "OK")
+
+    else
+      {:assessment, nil} ->
+        conn
+        |> put_status(:not_found)
+        |> text("Assessment not found")
+
+      {:error, {status, message}} ->
+        conn
+        |> put_status(status)
+        |> text(message)
+    end
+  end
+
   def index(conn, _) do
     cr = conn.assigns.course_reg
     {:ok, assessments} = Assessments.all_assessments(cr)
