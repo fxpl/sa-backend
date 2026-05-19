@@ -41,8 +41,8 @@ defmodule CadetWeb.AssessmentsController do
     cr = conn.assigns.course_reg
     
     with {:assessment, assessment} when not is_nil(assessment) <-
-          {assessment, Assessments.get_assessment(assessment_id, cr)},
-        {:ok, _nil} <- Assessments.reset_answers(cr.id, assessment_id) do
+          {:assessment, Assessments.get_assessment(assessment_id, cr)},
+        {_count, _} <- Assessments.reset_answers(cr.id, assessment_id) do #returns deleted rows
       text(conn, "OK")
 
     else
