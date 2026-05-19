@@ -42,7 +42,7 @@ defmodule CadetWeb.AssessmentsController do
     
     with {:assessment, assessment} when not is_nil(assessment) <-
           {assessment, Assessments.get_assessment(assessment_id, cr)},
-        {:ok, _nil} <- Assessments.reset_answers(cr.student_id, assessment_id) do
+        {:ok, _nil} <- Assessments.reset_answers(cr.id, assessment_id) do
       text(conn, "OK")
 
     else

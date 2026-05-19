@@ -588,11 +588,11 @@ defmodule Cadet.Assessments do
   get all answers connected to that assessment
 
   """
-  def reset_answers(student_id, assessment_id) do
+  def reset_answers(course_registration_id, assessment_id) do
     Answer
-    |> join([a], a.submission.student_id == ^student_id) # Get ALL answers with this student_id
-    |> join(:inner, [a, q], q.assessment_id == ^assessment_id) # get questions connected to this assessment
-    |> where([a, q], a.submission.student_id == ^student_id and q.question_id == ^assessment_id) # Filter: questions that is connected to 
+    |> join(:inner,[a], s in assoc(a, :submission)) # Get ALL answers with this student_id
+    |> join(:inner, [a], q in assoc(a, :question)) # get questions connected to this assessment
+    |> where([a, s, q], s.student_id == ^course_registration_id and q.assessment_id == ^assessment_id) # Filter: questions that is connected to 
     |> Repo.delete_all()
   end
 
