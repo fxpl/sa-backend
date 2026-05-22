@@ -37,6 +37,17 @@ defmodule CadetWeb.AssessmentsController do
     end
   end
 
+  def delete_assessment_answers(conn, %{"assessmentid" => assessment_id}) do
+    cr = conn.assigns.course_reg
+    case  Assessments.reset_answers(cr.id, assessment_id) do #returns deleted rows
+      {_count, _} -> text(conn, "OK")
+      _ ->
+      conn
+      |> put_status(:internal_server_error)
+      |> text("Something went wrong")
+    end
+  end
+
   def index(conn, _) do
     cr = conn.assigns.course_reg
     {:ok, assessments} = Assessments.all_assessments(cr)

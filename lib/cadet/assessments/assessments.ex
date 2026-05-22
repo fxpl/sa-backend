@@ -577,6 +577,25 @@ defmodule Cadet.Assessments do
     end
   end
 
+  @doc """
+  Goal: Function should resets an answer to an assessment
+  
+  Params: takes 
+  
+  assessment_id 
+  Vem? => cr 
+  First check that student is matching.
+  get all answers connected to that assessment
+
+  """
+  def reset_answers(course_registration_id, assessment_id) do
+    Answer
+    |> join(:inner,[a], s in assoc(a, :submission)) # Get ALL answers with this student_id
+    |> join(:inner, [a], q in assoc(a, :question)) # get questions connected to this assessment
+    |> where([a, s, q], s.student_id == ^course_registration_id and q.assessment_id == ^assessment_id) # Filter: questions that is connected to 
+    |> Repo.delete_all()
+  end
+
   @spec insert_or_update_assessment_changeset(map(), boolean()) :: Ecto.Changeset.t()
   defp insert_or_update_assessment_changeset(
          params = %{number: number, course_id: course_id},

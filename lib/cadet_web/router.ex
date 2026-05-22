@@ -93,6 +93,7 @@ defmodule CadetWeb.Router do
     get("/assessments/:assessmentid", AssessmentsController, :show)
     post("/assessments/:assessmentid/unlock", AssessmentsController, :unlock)
     post("/assessments/:assessmentid/submit", AssessmentsController, :submit)
+    delete("/assessments/:assessmentid/delete_assessment_answers", AssessmentsController, :delete_assessment_answers)
     post("/assessments/question/:questionid/answer", AnswerController, :submit)
     post("/statistics", StatisticsController, :create)
 
